@@ -13,7 +13,9 @@
     "build:merge": "esbuild src/merge/index.js --bundle --outfile=dist/merge/bundle.js --minify && npm run copy:merge",
     "build:watch:diff": "esbuild src/diff/index.js --bundle --outfile=dist/diff/bundle.js --minify --watch",
     "build:watch:merge": "esbuild src/merge/index.js --bundle --outfile=dist/merge/bundle.js --minify --watch",
-    "build": "npm run build:diff && npm run build:merge"
+    "build": "npm run build:diff && npm run build:merge",
+    "test:diff": "node ./bin/diff.js ./test/fixtures/local.bpmn ./test/fixtures/remote.bpmn",
+    "test:merge": "node ./bin/merge.js ./test/fixtures/base.bpmn ./test/fixtures/local.bpmn ./test/fixtures/remote.bpmn ./test/fixtures/merged.bpmn"
   },
   "keywords": [],
   "author": "",
