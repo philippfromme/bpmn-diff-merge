@@ -46,8 +46,7 @@ window.remoteXml = \`${remoteText}\`;
 });
 
 app.post('/save', async (req, res) => {
-  // await fs.writeFile(mergedPath, req.body.merged, 'utf8');
-  await fs.writeFile(mergedPath, 'fuck', 'utf8');
+  await fs.writeFile(mergedPath, req.body.merged, 'utf8');
 
   res.send(`<p>Merge saved to ${mergedPath}. You may close this window.</p>`);
 

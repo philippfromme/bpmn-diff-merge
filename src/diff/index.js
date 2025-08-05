@@ -1,11 +1,8 @@
-import { diff } from 'bpmn-js-differ';
-
 import Viewer from 'bpmn-js/lib/NavigatedViewer.js';
-
-import BpmnModdle from 'bpmn-moddle';
 
 import ElementColors from '../util/features/element-colors';
 
+import { diffXML } from '../util/diff.js';
 import { syncViewboxes } from '../util/sync.js';
 
 import './styles.css';
@@ -14,15 +11,6 @@ import AddIcon from '../icons/add.svg';
 import EditIcon from '../icons/edit.svg';
 import FlowDataIcon from '../icons/flow--data.svg';
 import SubtractIcon from '../icons/subtract.svg';
-
-async function diffXML() {
-  const moddle = new BpmnModdle();
-  
-  const { rootElement: localDefinitions} = await moddle.fromXML(window.localXml);
-  const { rootElement: remoteDefinitions} = await moddle.fromXML(window.remoteXml);
-
-  return diff(localDefinitions, remoteDefinitions);
-}
 
 async function importXML(xml, container, viewbox) {
   const viewer = new Viewer({
@@ -57,7 +45,7 @@ async function init() {
   document.querySelector('#local .title .path').textContent = window.localPath;
   document.querySelector('#remote .title .path').textContent = window.remotePath;
 
-  const diffResult = await diffXML();
+  const diffResult = await diffXML(window.localXml, window.remoteXml);
 
   console.log(diffResult);
 
