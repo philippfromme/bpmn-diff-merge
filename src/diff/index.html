@@ -5,23 +5,26 @@
   <title>BPMN Diff</title>
   <link rel="stylesheet" href="/bpmn-js/assets/diagram-js.css" />
   <link rel="stylesheet" href="/bpmn-js/assets/bpmn-js.css" />
-  <style>
-    body {
-      display: flex;
-      margin: 0;
-      height: 100vh;
-    }
-    .diagram {
-      width: 50vw;
-      height: 100vh;
-      border: 1px solid #ddd;
-      box-sizing: border-box;
-    }
-  </style>
+  <link rel="stylesheet" href="/diff/bundle.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div id="local" class="diagram"></div>
-  <div id="remote" class="diagram"></div>
+  <div id="local" class="diagram">
+    <div class="title">
+      <span class="letter">A</span>
+      <span class="path"></span>
+    </div>
+    <div class="container"></div>
+  </div>
+  <div id="remote" class="diagram">
+    <div class="title">
+      <span class="letter">B</span>
+      <span class="path"></span>
+    </div>
+    <div class="container"></div>
+  </div>
 
   <script src="/bpmn-js/bpmn-viewer.development.js"></script>
   <script type="module" src="./diff/bundle.js"></script>

@@ -33,10 +33,13 @@ app.get('/', async (req, res) => {
 
   html = html
     .replace('<!-- REPLACE -->', `
+window.basePath = \`${basePath}\`;
+window.localPath = \`${localPath}\`;
+window.remotePath = \`${remotePath}\`; 
+window.mergedPath = \`${mergedPath}\`;
 window.baseXml = \`${baseText}\`;
 window.localXml = \`${localText}\`;
 window.remoteXml = \`${remoteText}\`;
-window.mergedPath = \`${mergedPath}\`;
 `);
 
   res.send(html);

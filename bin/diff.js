@@ -30,6 +30,8 @@ app.get('/', async (req, res) => {
 
   html = html
     .replace('<!-- REPLACE -->', `
+window.localPath = \`${localPath}\`;
+window.remotePath = \`${remotePath}\`;
 window.localXml = \`${localXml}\`;
 window.remoteXml = \`${remoteXml}\`;
 `)

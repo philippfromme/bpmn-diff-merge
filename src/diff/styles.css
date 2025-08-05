@@ -1,0 +1,109 @@
+body {
+  display: flex;
+  margin: 0;
+  height: 100vh;
+}
+
+.diagram {
+  position: relative;
+  width: 50vw;
+  height: 100vh;
+  border: 1px solid #f0f0f0;
+  box-sizing: border-box;
+
+  > .title {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-family: "IBM Plex Mono", monospace;
+    margin: 0;
+    z-index: 10;
+
+    & > span {
+      font-size: 16px;
+      color: white;
+      background-color: #1f64f9;
+      padding: 4px 8px;
+
+      &.letter {
+        display: inline-block;
+        height: 28px;
+        width: 28px;
+        box-sizing: border-box;
+        text-align: center;
+      }
+
+      &.path {
+        background-color: #f0f0f0;
+        color: black;
+      }
+    }
+  }
+
+  > .container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+#local .bjs-powered-by {
+  display: none;
+}
+
+.djs-container > svg {
+  outline: none !important;
+}
+
+.overlay {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  &.removed {
+    background-color: #db242f;
+
+    svg {
+      fill: white;
+    }
+  }
+
+  &.added {
+    background-color: #1da04e;
+
+    svg {
+      fill: white;
+    }
+  }
+
+  &.changed {
+    background-color: #1f64f9;
+
+    svg {
+      fill: white;
+    }
+  }
+
+  &.layout-changed {
+    background-color: #1f64f9;
+
+    .cls-1 {
+      fill: white;
+    }
+  }
+}
