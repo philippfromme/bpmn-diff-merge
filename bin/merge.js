@@ -1,0 +1,60 @@
+#!/usr/bin/env node
+
+import express from 'express';
+import fs from 'fs/promises';
+import path from 'path';
+import open from 'open';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const app = express();
+app.use(express.urlencoded({ extended: true }));
+
+const [, , basePath, localPath, remotePath, mergedPath] = process.argv;
+
+if (!basePath || !localPath || !remotePath || !mergedPath) {
+  process.exit(1);
+}
+
+app.use('/bpmn-js', express.static(path.join(__dirname, '../node_modules/bpmn-js/dist')));
+
+app.use('/merge', express.static(path.join(__dirname, '../dist/merge')));
+
+app.get('/', async (req, res) => {
+  const baseText = await fs.readFile(basePath, 'utf8');
+  const localText = await fs.readFile(localPath, 'utf8');
+  const remoteText = await fs.readFile(remotePath, 'utf8');
+
+  const indexPath = path.join(__dirname, '../dist/merge/index.html');
+
+  let html = await fs.readFile(indexPath, 'utf8');
+
+  html = html
+    .replace('<!-- REPLACE -->', `
+window.baseXml = \`${baseText}\`;
+window.localXml = \`${localText}\`;
+window.remoteXml = \`${remoteText}\`;
+window.mergedPath = \`${mergedPath}\`;
+`);
+
+  res.send(html);
+});
+
+app.post('/save', async (req, res) => {
+  // await fs.writeFile(mergedPath, req.body.merged, 'utf8');
+  await fs.writeFile(mergedPath, 'fuck', 'utf8');
+
+  res.send(`<p>Merge saved to ${mergedPath}. You may close this window.</p>`);
+
+  console.log('Merge saved to', mergedPath);
+
+  process.exit(0);
+});
+
+const PORT = 3001;
+
+app.listen(PORT, () => {
+  open(`http://localhost:${PORT}`);
+});

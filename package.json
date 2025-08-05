@@ -1,0 +1,30 @@
+{
+  "name": "bpmn-diff-merge",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "bpmndiff": "./bin/diff.js",
+    "bpmnmerge": "./bin/merge.js"
+  },
+  "scripts": {
+    "copy:diff": "cp ./src/diff/index.html ./dist/diff/index.html",
+    "copy:merge": "cp ./src/merge/index.html ./dist/merge/index.html",
+    "build:diff": "esbuild src/diff/index.js --bundle --outfile=dist/diff/bundle.js --minify && npm run copy:diff",
+    "build:merge": "esbuild src/merge/index.js --bundle --outfile=dist/merge/bundle.js --minify && npm run copy:merge",
+    "build:watch:diff": "esbuild src/diff/index.js --bundle --outfile=dist/diff/bundle.js --minify --watch",
+    "build:watch:merge": "esbuild src/merge/index.js --bundle --outfile=dist/merge/bundle.js --minify --watch",
+    "build": "npm run build:diff && npm run build:merge"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "bpmn-js": "^18.6.2",
+    "express": "^5.1.0",
+    "open": "^10.2.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.8"
+  }
+}

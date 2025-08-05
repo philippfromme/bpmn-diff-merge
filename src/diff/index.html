@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>BPMN Diff</title>
+  <link rel="stylesheet" href="/bpmn-js/assets/diagram-js.css" />
+  <link rel="stylesheet" href="/bpmn-js/assets/bpmn-js.css" />
+  <style>
+    body {
+      display: flex;
+      margin: 0;
+      height: 100vh;
+    }
+    .diagram {
+      width: 50vw;
+      height: 100vh;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <div id="local" class="diagram"></div>
+  <div id="remote" class="diagram"></div>
+
+  <script src="/bpmn-js/bpmn-viewer.development.js"></script>
+  <script type="module" src="./diff/bundle.js"></script>
+
+  <script>
+    <!-- REPLACE -->
+  </script>
+</body>
+</html>
