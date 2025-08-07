@@ -45,7 +45,7 @@ window.remoteXml = \`${remoteXml}\`;
 
 const PORT = 3000;
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   open(`http://localhost:${PORT}`);
   console.log(`Server listening on ${PORT}`);
 }).on('error', (err) => {
@@ -62,7 +62,7 @@ process.on('exit', code => {
 
 function gracefulShutdown() {
   console.log('Received shutdown signal, closing server...');
-  app.close(() => {
+  server.close(() => {
     console.log('All connections closed, exiting.');
     process.exit(0);
   });

@@ -85,7 +85,7 @@ async function renderDiff(localViewer, remoteViewer) {
       strokeColor: '#da1e28',
       fillColor: '#fff1f1'
     }
-  }
+  };
 
   const addMarkers = (moddleElement, markers, viewer, priority = 1000) => {
     const elementRegistry = viewer.get('elementRegistry');

@@ -7,7 +7,8 @@ function ResizableContainer({
   minSize = 100, 
   maxSize = 600, 
   children,
-  onResize
+  onResize,
+  className
 }) {
   const [size, setSize] = useState(initialSize);
   const isResizing = useRef(false);
@@ -87,7 +88,7 @@ function ResizableContainer({
   }
 
   return (
-    <div style={containerStyle}>
+    <div className={classNames('resizable-container', className)} style={containerStyle}>
       {children}
       <div
         className={ classNames('resizer', {

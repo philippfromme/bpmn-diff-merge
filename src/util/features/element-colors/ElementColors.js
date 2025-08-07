@@ -26,6 +26,17 @@ export default function ElementColors(elementRegistry, eventBus, graphicsFactory
   this._originalColors = {};
   this._customColors = {};
 
+  eventBus.on('import.done', VERY_HIGH_PRIORITY, () => {
+    elementRegistry.forEach(element => {
+      element.di?.set('background-color', 'white');
+      element.di?.set('border-color', '#333');
+
+      this._forceRedraw(element);
+    });
+
+    this._saveOriginalColors();
+  });
+
   eventBus.on('saveXML.start', VERY_HIGH_PRIORITY, () => {
     this._applyOriginalColors();
 
@@ -38,6 +49,11 @@ ElementColors.$inject = [
   'eventBus',
   'graphicsFactory'
 ];
+
+ElementColors.prototype.reset = function() {
+  this._applyOriginalColors();
+  this._customColors = {};
+};
 
 /**
  * Add colors to an element. Element will be redrawn with highest priority
