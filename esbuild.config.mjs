@@ -24,7 +24,7 @@ async function build({ watch }) {
   // Create contexts for each build target
   const diffContext = await esbuild.context({
     ...common,
-    entryPoints: ['src/diff/index.js'],
+    entryPoints: ['src/diff/index.jsx'],
     outfile: 'dist/diff/bundle.js',
   });
 

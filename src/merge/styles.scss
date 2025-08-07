@@ -39,6 +39,16 @@
     width: 100%;
     background: #f4f4f4;
     overflow-y: auto;
+
+    .cds--accordion__title {
+      display: inline-flex;
+      align-items: center;
+      line-height: 16px;
+
+      svg {
+        margin-right: 8px;
+      }
+    }
   }
 
   .diagrams {

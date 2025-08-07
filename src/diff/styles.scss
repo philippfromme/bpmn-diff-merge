@@ -1,0 +1,132 @@
+@use '@carbon/styles/scss/config' with (
+  $font-path: '/fonts' // or wherever you serve the fonts from
+);
+@use '@carbon/react';
+@use '@carbon/styles/scss/reset'; // optional: if you want Carbon's CSS reset
+
+@use '@carbon/colors';
+
+body, #root {
+  display: flex;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.diagram {
+  position: relative;
+  width: 50vw;
+  height: 100vh;
+  border: 1px solid #f0f0f0;
+  box-sizing: border-box;
+
+  .diagram-title {
+    position: absolute;
+    z-index: 100;
+    top: 16px;
+    left: 16px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    
+    .letter {
+      display: inline-flex;
+      height: 24px;
+      width: 24px;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      text-align: center;
+      color: white;
+      background-color: colors.$blue-60;
+      font-weight: bold;
+    }
+    
+    .title {
+      background-color: #f0f0f0;
+      color: black;
+      padding: 4px 8px;
+    }
+  }
+}
+
+.left {
+  .letter {
+    background-color: colors.$blue-60 !important;
+    color: colors.$blue-20 !important;
+  }
+}
+
+.right {
+  .letter {
+    background-color: colors.$yellow-20 !important;
+    color: colors.$yellow-60 !important;
+  }
+}
+
+#local .bjs-powered-by {
+  display: none;
+}
+
+.djs-container > svg {
+  outline: none !important;
+}
+
+.overlay {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.5);
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  &.removed {
+    background-color: #fff1f1;
+    border: 1px solid #da1e28;
+
+    svg {
+      fill: #da1e28;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &.added {
+    background-color: #defbe6;
+    border: 1px solid #198038;
+
+    svg {
+      fill: #198038;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &.layout-changed {
+    background-color: rgb(252, 244, 214);
+    border: 1px solid rgb(178, 134, 0);
+
+    .cls-1 {
+      fill: rgb(178, 134, 0);
+    }
+  }
+
+  &.changed {
+    background-color: #edf5ff;
+    border: 1px solid #4589ff;
+
+    svg {
+      fill: #4589ff;
+    }
+  }
+}

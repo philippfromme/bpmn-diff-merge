@@ -19,12 +19,56 @@ export async function findConflicts(baseXml, localXml, remoteXml) {
 
   const conflicts = [];
 
+  /**
+   * Conflicting layout changes.
+   * If both local and remote have layout changes for the same element,
+   * it is considered a conflict.
+   */
   for (const id in localDiff._layoutChanged) {
     if (remoteDiff._layoutChanged[id]) {
       conflicts.push({
+        id,
         type: 'layout-changed',
         a: localDiff._layoutChanged[id],
         b: remoteDiff._layoutChanged[id]
+      });
+    }
+  }
+
+  for (const id in remoteDiff._layoutChanged) {
+    if (localDiff._layoutChanged[id] && !conflicts.some(conflict => conflict.id === id && conflict.type === 'layout-changed')) {
+      conflicts.push({
+        id,
+        type: 'layout-changed',
+        a: localDiff._layoutChanged[id],
+        b: remoteDiff._layoutChanged[id]
+      });
+    }
+  }
+
+  /**
+   * Conflicting additions.
+   * If an element with the same ID is added in both local and remote,
+   * it is considered a conflict.
+   */
+  for (const id in localDiff._added) {
+    if (remoteDiff._added[id]) {
+      conflicts.push({
+        id,
+        type: 'added',
+        a: localDiff._added[id],
+        b: remoteDiff._added[id]
+      });
+    }
+  }
+
+  for (const id in remoteDiff._added) {
+    if (localDiff._added[id] && !conflicts.some(conflict => conflict.id === id && conflict.type === 'added')) {
+      conflicts.push({
+        id,
+        type: 'added',
+        a: localDiff._added[id],
+        b: remoteDiff._added[id]
       });
     }
   }

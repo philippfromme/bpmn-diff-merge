@@ -78,7 +78,7 @@ process.on('exit', code => {
 
 function gracefulShutdown() {
   console.log('Received shutdown signal, closing server...');
-  server.close(() => {
+  app.close(() => {
     console.log('All connections closed, exiting.');
     process.exit(0);
   });

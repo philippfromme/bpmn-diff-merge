@@ -15,6 +15,10 @@ import {
 } from '@carbon/react';
 
 import {
+  Add,
+  Subtract,
+  Edit,
+  FlowData,
   PullRequest
 } from '@carbon/icons-react';
 
@@ -24,13 +28,20 @@ import classNames from 'classnames';
 
 import ResizableContainer from './ResizableContainer.jsx';
 
-const CONFLICTS = [
-  'foo',
-  'bar',
-  'baz'
-];
+import { findConflicts } from '../util/conflicts';
 
 export default function App() {
+
+  const [ conflicts, setConflicts ] = React.useState([]);
+
+  useEffect(() => {
+    findConflicts(window.baseXml, window.localXml, window.remoteXml).then(conflicts => {
+      setConflicts(conflicts);
+
+      console.log('Conflicts:', conflicts);
+    });
+  }, []);
+
   return (
     <>
       <HeaderContainer
@@ -46,11 +57,20 @@ export default function App() {
         <ResizableContainer direction="right" initialSize={300} minSize={200} maxSize={400}>
           <div className="conflicts">
             {
-              CONFLICTS.map((conflict, index) => (
-                <Accordion align="start" key={index}>
-                  <AccordionItem title={conflict}>{conflict}</AccordionItem>
-                </Accordion>
-              ))
+              conflicts.map((conflict, index) => {
+                const {
+                  id,
+                  type,
+                  a,
+                  b
+                } = conflict;
+
+                const Icon = getIcon(type);
+
+                return <Accordion align="start" key={index}>
+                  <AccordionItem title={<>{ Icon }{id}</>}>{type}</AccordionItem>
+                </Accordion>;
+              })
             }
           </div>
         </ResizableContainer>
@@ -122,4 +142,19 @@ function Diagram(props) {
     <div className={ classNames('diagram', className) } ref={ ref }>
     </div>
   );
+}
+
+function getIcon(type) {
+  switch (type) {
+    case 'added':
+      return <Add />;
+    case 'removed':
+      return <Subtract />;
+    case 'changed':
+      return <Edit />;
+    case 'layout-changed':
+      return <FlowData />;
+    default:
+      return null;
+  }
 }
