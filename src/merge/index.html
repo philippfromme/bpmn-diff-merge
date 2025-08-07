@@ -11,23 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="top">
-    <div class="left">
-      <h2>Local</h2>
-      <textarea id="localText" readonly></textarea>
-    </div>
-    <div class="right">
-      <h2>Remote</h2>
-      <textarea id="remoteText" readonly></textarea>
-    </div>
-  </div>
-  <div class="bottom">
-    <h2>Merge Result</h2>
-    <form method="POST" action="/save">
-      <textarea name="merged" id="mergedText"></textarea><br />
-      <button type="submit">Save Merge</button>
-    </form>
-  </div>
+  <div id="root"></div>
 
   <script>
     <!-- REPLACE -->

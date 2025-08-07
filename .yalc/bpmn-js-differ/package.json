@@ -1,0 +1,49 @@
+{
+  "name": "bpmn-js-differ",
+  "version": "3.0.2",
+  "description": "A semantic diffing utility for BPMN 2.0 files",
+  "scripts": {
+    "all": "run-s lint test",
+    "lint": "eslint .",
+    "pretest": "rollup -c --bundleConfigAsCjs",
+    "test": "mocha test/spec/*.js"
+  },
+  "main": "./dist/index.cjs",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": "./dist/index.esm.js",
+      "node": "./dist/index.cjs"
+    }
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bpmn-io/bpmn-js-differ"
+  },
+  "keywords": [
+    "bpmnjs",
+    "diff"
+  ],
+  "author": {
+    "name": "Nico Rehwaldt",
+    "url": "https://github.com/Nikku"
+  },
+  "contributors": [
+    {
+      "name": "bpmn.io contributors",
+      "url": "https://github.com/bpmn-io"
+    }
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@bpmn-io/moddle-utils": "^0.2.1",
+    "diffpatch": "^0.6.0",
+    "min-dash": "^4.2.1",
+    "zeebe-bpmn-moddle": "^1.11.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "yalcSig": "d72b7d7d7ac0c6a960d991daf46252ca"
+}

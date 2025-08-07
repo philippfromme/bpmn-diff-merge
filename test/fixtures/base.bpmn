@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_151mywi" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.37.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_151mywi" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.37.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.8.0">
   <bpmn:process id="Process_10xk3m2" isExecutable="true">
     <bpmn:startEvent id="Event_1uoxre2">
       <bpmn:outgoing>Flow_1n7s8dp</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:task id="Activity_1bg92w3">
+    <bpmn:task id="Activity_1bg92w3" name="Foo">
+      <bpmn:extensionElements>
+        <zeebe:executionListeners>
+          <zeebe:executionListener eventType="start" type="=foo" />
+        </zeebe:executionListeners>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_1n7s8dp</bpmn:incoming>
       <bpmn:outgoing>Flow_17llure</bpmn:outgoing>
     </bpmn:task>
@@ -21,6 +26,7 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1bg92w3_di" bpmnElement="Activity_1bg92w3">
         <dc:Bounds x="240" y="70" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_030gr52_di" bpmnElement="Event_030gr52">
         <dc:Bounds x="392" y="92" width="36" height="36" />

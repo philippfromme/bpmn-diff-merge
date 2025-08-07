@@ -34,7 +34,6 @@ async function importXML(xml, container, viewbox) {
       });
     }
 
-
     return viewer;
   } catch (error) {
     console.error('Error importing XML:', error);
