@@ -2,7 +2,7 @@
   "version": "v1",
   "packages": {
     "bpmn-js-differ": {
-      "signature": "941e7f6fd1a0620248890f36c2feff48",
+      "signature": "23a28638234725ff948eb741f078c474",
       "file": true,
       "replaced": "^3.0.2"
     }

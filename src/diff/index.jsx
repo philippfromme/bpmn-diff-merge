@@ -126,7 +126,7 @@ async function renderDiff(localViewer, remoteViewer) {
     addMarkers(element, ['added'], remoteViewer);
   }
 
-  for (const { model: element} of Object.values(changedElements)) {
+  for (const { element} of Object.values(changedElements)) {
     addMarkers(element, ['changed'], localViewer, 2000);
     addMarkers(element, ['changed'], remoteViewer, 2000);
   }

@@ -26,7 +26,11 @@ export async function findConflicts(baseXml, localXml, remoteXml) {
    */
   for (const elementId in localDiff._layoutChanged) {
     if (remoteDiff._layoutChanged[elementId]) {
+
+      const conflictId = getRandomId();
+
       conflicts.push({
+        id: conflictId,
         label: getLabel(localDiff._layoutChanged[elementId]),
         elementId: elementId,
         typeA: 'layout-changed',
@@ -35,6 +39,9 @@ export async function findConflicts(baseXml, localXml, remoteXml) {
         b: remoteDiff._layoutChanged[elementId],
         description: <span>Element has layout changes in both local and remote versions.</span>
       });
+
+      localDiff._layoutChanged[elementId].conflictId = conflictId;
+      remoteDiff._layoutChanged[elementId].conflictId = conflictId;
     }
   }
 
@@ -45,7 +52,11 @@ export async function findConflicts(baseXml, localXml, remoteXml) {
    */
   for (const elementId in localDiff._added) {
     if (remoteDiff._added[elementId]) {
+
+      const conflictId = getRandomId();
+
       conflicts.push({
+        id: conflictId,
         label: getLabel(localDiff._added[elementId]),
         elementId: elementId,
         typeA: 'added',
@@ -54,6 +65,9 @@ export async function findConflicts(baseXml, localXml, remoteXml) {
         b: remoteDiff._added[elementId],
         description: <span>Element is added in both local and remote versions.</span>
       });
+
+      localDiff._added[elementId].conflictId = conflictId;
+      remoteDiff._added[elementId].conflictId = conflictId;
     }
   }
 
@@ -65,10 +79,23 @@ export async function findConflicts(baseXml, localXml, remoteXml) {
   for (const elementId in localDiff._changed) {
     if (remoteDiff._changed[elementId]) {
       for (const property in localDiff._changed[elementId].properties) {
-        if (pathEquals(localDiff._changed[elementId].properties[property].path, remoteDiff._changed[elementId].properties[property].path)) {
+
+        if (!remoteDiff._changed[elementId].properties[property]) {
+          continue;
+        }
+
+        if (
+          pathEquals(localDiff._changed[elementId].properties[property].path, remoteDiff._changed[elementId].properties[property].path)
+          && localDiff._changed[elementId].properties[property].newValue !== remoteDiff._changed[elementId].properties[property].newValue
+        ) {
+
+          const conflictId = getRandomId();
+
           conflicts.push({
-            label: getLabel(localDiff._changed[elementId].model),
+            id: conflictId,
+            label: getLabel(localDiff._changed[elementId].element),
             elementId: elementId,
+            path: localDiff._changed[elementId].properties[property].path,
             typeA: 'changed',
             typeB: 'changed',
             a: localDiff._changed[elementId].properties[property],
@@ -85,6 +112,9 @@ export async function findConflicts(baseXml, localXml, remoteXml) {
               </div>
             </div>
           });
+
+          localDiff._changed[elementId].properties[property].conflictId = conflictId;
+          remoteDiff._changed[elementId].properties[property].conflictId = conflictId;
         }
       }
     }
@@ -97,41 +127,52 @@ export async function findConflicts(baseXml, localXml, remoteXml) {
    */
   for (const elementId in localDiff._removed) {
     if (remoteDiff._changed[elementId]) {
+
+      const conflictId = getRandomId();
+
       conflicts.push({
+        id: conflictId,
         label: getLabel(localDiff._removed[elementId]),
         elementId: elementId,
         typeA: 'removed',
         typeB: 'changed',
         a: localDiff._removed[elementId],
-        b: remoteDiff._changed[elementId].model,
+        b: remoteDiff._changed[elementId].element,
         description: <div>
           <span>Element is removed in local version but changed in remote version.</span>
         </div>
       });
+
+      localDiff._removed[elementId].conflictId = conflictId;
+      remoteDiff._changed[elementId].conflictId = conflictId;
     }
   }
 
   // check the reverse for remote removed and local changed
   for (const elementId in remoteDiff._removed) {
+
+    const conflictId = getRandomId();
+
     if (localDiff._changed[elementId]) {
       conflicts.push({
+        id: conflictId,
         label: getLabel(remoteDiff._removed[elementId]),
         elementId: elementId,
         typeA: 'changed',
         typeB: 'removed',
         a: remoteDiff._removed[elementId],
-        b: localDiff._changed[elementId].model,
+        b: localDiff._changed[elementId].element,
         description: <div>
           <span>Element is removed in remote version but changed in local version.</span>
         </div>
       });
+
+      remoteDiff._removed[elementId].conflictId = conflictId;
+      localDiff._changed[elementId].conflictId = conflictId;
     }
   }
 
-  return conflicts.map(conflict => ({
-    ...conflict,
-    id: getRandomId()
-  }));
+  return { conflicts, localDiff, remoteDiff };
 }
 
 function getRandomId() {

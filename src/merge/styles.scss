@@ -277,3 +277,62 @@
     }
   }
 }
+
+.overlay {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.5);
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  &.removed {
+    background-color: #fff1f1;
+    border: 1px solid #da1e28;
+
+    svg {
+      fill: #da1e28;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &.added {
+    background-color: #defbe6;
+    border: 1px solid #198038;
+
+    svg {
+      fill: #198038;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &.layout-changed {
+    background-color: rgb(252, 244, 214);
+    border: 1px solid rgb(178, 134, 0);
+
+    .cls-1 {
+      fill: rgb(178, 134, 0);
+    }
+  }
+
+  &.changed {
+    background-color: #edf5ff;
+    border: 1px solid #4589ff;
+
+    svg {
+      fill: #4589ff;
+    }
+  }
+}
